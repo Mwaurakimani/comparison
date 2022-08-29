@@ -1,0 +1,30 @@
+@import "config/config";
+
+
+.btn{
+    display: block;
+    padding: 5px 20px;
+    background-color: var(--theme-primary);
+    color: white !important;
+    border: none;
+    font-size: 0.90em;
+    transition: all ease 0.25s;
+
+    &:hover {
+        background-color: var(--theme-primary-dark);
+    }
+    &:active{
+        transform: scale(0.9);
+    }
+}
+
+.border-r{
+    border-radius: 8px;
+}
+
+.badge{
+    padding: 3px 10px;
+    background-color: var(--theme-dark);
+    color: white;
+    border-radius: 20px;
+}
