@@ -35,11 +35,11 @@
     <div class="filter-bar">
         <div class="input-group">
             <label> Sort Results:</label>
-            <select name="" id="" v-model="filter_stat" >
-                <option value="price-descending" >Price Descending</option>
-                <option value="price-accending" >Price Accending</option>
-                <option value="A-Z" >A-Z</option>
-                <option value="Z-A" >Z-A</option>
+            <select name="" id="" v-model="filter_stat">
+                <option value="price-descending">Price Descending</option>
+                <option value="price-accending">Price Accending</option>
+                <option value="A-Z">A-Z</option>
+                <option value="Z-A">Z-A</option>
             </select>
         </div>
     </div>
@@ -66,8 +66,6 @@
     </div>
 
 
-
-
     <footer class="h-[300px] w-[100%]" style="background-color: var(--theme-dark)">
 
     </footer>
@@ -84,9 +82,9 @@ export default {
     data() {
         return {
             content: {
-                data:null,
-                length:0,
-                status:0
+                data: null,
+                length: 0,
+                status: 0
             },
             filter_stat: null,
             search_term: null
@@ -94,12 +92,12 @@ export default {
     },
     methods: {
         scrap() {
-            axios.post(route('scrapper_controller'),{
-                "term":this.search_term,
-                "filter":this.filter_stat
+            axios.post(route('scrapper_controller'), {
+                "term": this.search_term,
+                "filter": this.filter_stat
             })
                 .then((response) => {
-                    console.log(response.data.status == 0 )
+                    console.log(response.data.status == 0)
 
                     let count = Object.keys(response.data.data).length
 
@@ -128,14 +126,15 @@ export default {
                     window.location.href = '/login'
                 }
             })
-        }
+        },
+
     }
 }
 </script>
 <style scoped lang="scss">
 
-.display-content{
-    &>p{
+.display-content {
+    & > p {
         width: 100%;
         height: 300px;
         text-align: center;
@@ -216,7 +215,7 @@ export default {
 
 }
 
-.filter-bar{
+.filter-bar {
     width: 1000px;
     height: 50px;
     margin: auto;
@@ -225,13 +224,15 @@ export default {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    label{
+
+    label {
         display: block;
         margin: 0 20px;
         padding: 0pc;
         line-height: 50px;
     }
-    select{
+
+    select {
         align-self: center;
         height: 90%;
     }

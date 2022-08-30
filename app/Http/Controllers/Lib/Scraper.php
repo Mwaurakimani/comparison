@@ -54,9 +54,11 @@ class Scraper
                             $product['price'] = $node->filter('.prc')->eq(0)->text();
 
                             $price = strtoupper($product['price'] );
+
                             $price = preg_replace('/[A-Z]+/', '', $price);
 
-                            $price = (int)$price;
+
+                            $price =  (int)str_replace(",","",$price);
                             $product['price'] =$price;
                         } else {
                             $product['price'] = $node->filter($link['price_tag'])->eq(1)->text();
@@ -156,9 +158,10 @@ class Scraper
                         ->filter('div > span')->eq(0)->text();
 
                     $price = strtoupper($product['price'] );
+
                     $price = preg_replace('/[A-Z]+/', '', $price);
 
-                    $price = (int)$price;
+                    $price =  (int)str_replace(",","",$price);
                     $product['price'] =$price;
 
 

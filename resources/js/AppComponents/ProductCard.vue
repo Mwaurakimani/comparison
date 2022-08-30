@@ -7,7 +7,7 @@
             <h5 class="mb-[10px]" style="color: #1555EC;font-weight: bolder">{{ content.name }}</h5>
             <p style="color: var(--text-grey);max-height: 75px;overflow: hidden" class="pb-[20px]">{{ content.description }}</p>
             <div class="info flex" style="align-items: center">
-                <div :class="['price mr-[50px]', parseInt(content.price) > 0 ? '' :'high-light-price']"  style="color: var(--orange)">Ksh {{ parseInt(content.price) > 0 ?parseInt(content.price):"Check for Price"  }}</div>
+                <div :class="['price mr-[50px]', parseInt(content.price) > 0 ? '' :'high-light-price']"  style="color: var(--orange)">Ksh {{ parseInt(content.price) > 0 ?numberWithCommas(parseInt(content.price)):"Check for Price"  }}</div>
                 <div class="badge">{{ content.site_name }}</div>
             </div>
             <slot name="deleter">
@@ -31,6 +31,11 @@ export default {
     methods:{
         visit_product(link){
             location.href = link
+        },
+        numberWithCommas(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
         }
     }
 }
