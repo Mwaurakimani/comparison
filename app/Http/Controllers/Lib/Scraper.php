@@ -135,6 +135,7 @@ class Scraper
 
     public function scrap_product($url)
     {
+
         try {
             $html = file_get_contents($url);
 
