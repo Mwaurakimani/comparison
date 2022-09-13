@@ -24,9 +24,9 @@
                 <Link @click="navigate_dashboard('Search')" as="li" :href="route('search')"
                       :class="[this.navigationStore.$state.current_page == 'Search' ? 'active-tag': '']"><span></span>
                     <p>Search</p></Link>
-                <Link @click="navigate_dashboard('Watch')" as="li" :href="route('watch')"
+                <Link @click="navigate_dashboard('phones')" as="li" :href="route('phones')"
                       :class="[this.navigationStore.$state.current_page == 'Watch' ? 'active-tag': '']"><span></span>
-                    <p>Watch List</p></Link>
+                    <p>Phones</p></Link>
                 <Link @click="navigate_dashboard('Preference')" as="li" :href="route('preference')"
                       :class="[this.navigationStore.$state.current_page == 'Preference' ? 'active-tag': '']">
                     <span></span>

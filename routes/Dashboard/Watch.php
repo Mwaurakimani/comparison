@@ -4,26 +4,34 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/WatchList', function () {
-    $scrapper = new \App\Http\Controllers\Lib\Scraper();
-    $watches = \App\Models\watch::where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->get();
+Route::get('/Phones', function () {
+    $phones = \App\Models\Phone::all();
 
-    $products = [];
-
-    foreach ($watches as $watch){
-        $product_details = $scrapper->scrap_product($watch->product_link);
-        $product_details['id'] = $watch->id;
-
-        array_push($products, $product_details);
-    }
-
-    return Inertia::render('Dashboard/DashboardWatch',[
-        'content' => $products
+    return Inertia::render('Dashboard/DashboardPhones',[
+        'phones' => $phones
     ]);
-})->name('watch');
+})->name('phones');
+
+Route::get('/Phones/{Phone}', function (\Illuminate\Http\Request $request, $Phone) {
+
+    $Phone = \App\Models\Phone::find($Phone);
+
+    return Inertia::render('Dashboard/DashboardCreatePhones',[
+        'phone' => $Phone
+    ]);
+
+})->name('edit_phone');
+
+Route::get('/Phones/create', function () {
+    return Inertia::render('Dashboard/DashboardCreatePhones');
+})->name('create_phone');
+
+Route::post('/Phones/create', [\App\Http\Controllers\PhoneController::class,'add_phone'])->name('add_phone');
+
+Route::post('/Phones/update/{Phone}', [\App\Http\Controllers\PhoneController::class,'update_phone'])->name('update_phone');
+
+Route::post('/Phones/search', [\App\Http\Controllers\PhoneController::class,'fetch_phone'])->name('fetch_phone');
+
+Route::post('/Phones/select', [\App\Http\Controllers\PhoneController::class,'phone_selected'])->name('phone_selected');
 
 
-Route::post('/addToWatchList',[\App\Http\Controllers\WatchController::class,'add_to_watch'])->name('add_to_watch_list');
-
-
-Route::post('/removeToWatchList/{id}',[\App\Http\Controllers\WatchController::class,'remove_item_from_watch'])->name('remove_item_from_watch');
