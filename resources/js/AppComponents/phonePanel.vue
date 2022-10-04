@@ -45,19 +45,15 @@
                 <p>{{ match_phone.back }}</p>
             </div>
         </div>
-        <div class="shops">
-            <div class="shop-elem">
-                <p>Neme</p>
-                <span>Ksh 30,000</span>
-            </div>
-            <div class="shop-elem">
-                <p>Neme</p>
-                <span>Ksh 30,000</span>
-            </div>
-            <div class="shop-elem">
-                <p>Neme</p>
-                <span>Ksh 30,000</span>
-            </div>
+        <div v-if="match_phone" class="shops">
+            <a  v-if="match_phone.price1" class="shop-elem" :href="match_phone.ecom1">
+                <p>Ecommerce site</p>
+                <span>{{ match_phone.price1 }}</span>
+            </a>
+            <a  v-if="match_phone.price2" class="shop-elem" :href="match_phone.ecom2">
+                <p>Dummy site 2</p>
+                <span>{{ match_phone.price2 }}</span>
+            </a>
         </div>
     </div>
 </template>
@@ -67,6 +63,12 @@ import axios from "axios";
 
 export default {
     name: "phonePanel",
+    props: ['selectedPhone'],
+    watch:{
+        selectedPhone(newData,oldData){
+            this.phone_selected(newData)
+        }
+    },
     data(){
         return {
             phone_search_list:null,
@@ -92,6 +94,11 @@ export default {
                 this.phone_key = null,
                 this.match_phone = res.data
             })
+        }
+    },
+    mounted() {
+        if(this.selectedPhone){
+            this.phone_selected(this.selectedPhone)
         }
     }
 }

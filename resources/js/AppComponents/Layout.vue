@@ -21,16 +21,16 @@
                 <Link @click="navigate_dashboard('Account')" as="li" :href="route('account')"
                       :class="[this.navigationStore.$state.current_page == 'Account' ? 'active-tag': '']"><span></span>
                     <p>Account</p></Link>
-                <Link @click="navigate_dashboard('Search')" as="li" :href="route('search')"
-                      :class="[this.navigationStore.$state.current_page == 'Search' ? 'active-tag': '']"><span></span>
-                    <p>Search</p></Link>
+<!--                <Link @click="navigate_dashboard('Search')" as="li" :href="route('search')"-->
+<!--                      :class="[this.navigationStore.$state.current_page == 'Search' ? 'active-tag': '']"><span></span>-->
+<!--                    <p>Search</p></Link>-->
                 <Link @click="navigate_dashboard('phones')" as="li" :href="route('phones')"
                       :class="[this.navigationStore.$state.current_page == 'Watch' ? 'active-tag': '']"><span></span>
                     <p>Phones</p></Link>
-                <Link @click="navigate_dashboard('Preference')" as="li" :href="route('preference')"
-                      :class="[this.navigationStore.$state.current_page == 'Preference' ? 'active-tag': '']">
-                    <span></span>
-                    <p>Preference</p></Link>
+<!--                <Link @click="navigate_dashboard('Preference')" as="li" :href="route('preference')"-->
+<!--                      :class="[this.navigationStore.$state.current_page == 'Preference' ? 'active-tag': '']">-->
+<!--                    <span></span>-->
+<!--                    <p>Preference</p></Link>-->
             </ul>
         </div>
         <div class="content">

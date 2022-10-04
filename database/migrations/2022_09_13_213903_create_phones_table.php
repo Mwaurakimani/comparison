@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('storage')->nullable();
             $table->string('front')->nullable();
             $table->string('back')->nullable();
+            $table->text('ecom1')->nullable();
+            $table->text('ecom2')->nullable();
             $table->timestamps();
         });
     }

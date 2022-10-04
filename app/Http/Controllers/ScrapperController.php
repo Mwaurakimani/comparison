@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Phone;
 use App\Models\Preference;
 use App\Models\Search;
 use Goutte\Client;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Lib\Scraper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use function PHPUnit\Framework\isEmpty;
 
 class ScrapperController extends Controller
 {
@@ -17,11 +19,54 @@ class ScrapperController extends Controller
         $search_term = $request['term'];
         $filter = $request['filter'];
 
-        if (Auth::user()) {
-            $search = $this->add_search($search_term);
-        }
+//        if (Auth::user()) {
+//            $search = $this->add_search($search_term);
+//        }
 
-        $term = Str::of($search_term)->slug('-');
+//        $term = Str::of($search_term)->slug('-');
+        $term = $search_term;
+         $phones = null;
+
+        if($term != null){
+            $phones = Phone::where('name','LIKE',"%${term}%")->get();
+
+            foreach ($phones as $key=>$phone){
+
+                $ecom1_link = $phone->ecom1;
+
+                if($ecom1_link != null){
+                    $scrapper = new Scraper();
+
+                    $item = $scrapper->scrap_product($ecom1_link);
+
+                    $phone['site_one_price'] = $item['price'];
+
+                }
+
+
+                $ecom2_link = $phone->ecom2;
+
+                if($ecom2_link != null){
+                    $scrapper = new Scraper();
+
+                    $item = $scrapper->scrap_product($ecom2_link);
+
+                    $phone['site_two_price'] = $item['price'];
+                }
+
+                $phone['site_one'] = "Ecommerce site";
+
+                $phone['site_two'] = "Dummy site 2";
+
+            }
+
+            return [
+                'status' => 0,
+                'data' => $phones
+            ];
+        }else{
+            return;
+        }
 
         $links = [
             [
@@ -40,14 +85,14 @@ class ScrapperController extends Controller
                 "price_tag" => "p",
                 "product_image_selector" => ".product-image > img"
             ],//
-            [
-                "link" => "https://www.jumia.co.ke/catalog/?q=${term}",
-                "card_selector" => ".core",
-                "title_tag" => ".name",
-                "price_tag" => ".prc",
-                "product_image_selector" => ".img-c > img",
-                "tagger" => true
-            ],
+//            [
+//                "link" => "https://www.jumia.co.ke/catalog/?q=${term}",
+//                "card_selector" => ".core",
+//                "title_tag" => ".name",
+//                "price_tag" => ".prc",
+//                "product_image_selector" => ".img-c > img",
+//                "tagger" => true
+//            ],
         ];
 
         $scraper = new Scraper(new Client());

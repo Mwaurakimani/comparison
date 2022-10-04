@@ -72,6 +72,17 @@
             </div>
         </div>
     </div>
+    <div class="panel mt-[20px]">
+        <h1 style="font-weight: bolder; font-size: 1.2em;margin-bottom: 20px" >Links</h1>
+        <div class="input-group">
+            <label for="">Ecommerce 1</label>
+            <input type="text" v-model="phone_form.ecom1">
+        </div>
+        <div class="input-group">
+            <label for="">Ecommerce 2</label>
+            <input type="text" v-model="phone_form.ecom2">
+        </div>
+    </div>
 </template>
 
 <script>
@@ -92,6 +103,8 @@ export default {
                 storage: this.phone && this.phone.storage ? this.phone.storage : null,
                 front: this.phone && this.phone.front ? this.phone.front : null,
                 back: this.phone && this.phone.back ? this.phone.back : null,
+                ecom1: this.phone && this.phone.ecom1 ? this.phone.ecom1 : null,
+                ecom2: this.phone && this.phone.ecom2 ? this.phone.ecom2 : null,
                 avatar: null
             })
         }
@@ -134,7 +147,6 @@ export default {
 .content{
     width: 100%;
     display: flex;
-    height: calc(100% - 50px);
     flex-wrap: wrap;
     justify-content: space-around;
     overflow: auto;
@@ -186,5 +198,22 @@ export default {
 
 }
 
+
+.panel{
+    .input-group{
+        width: 800px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        label{
+            width: 150px;
+        }
+        input{
+            width: 500px;
+            border-radius: 5px !important;
+            border: 1px solid lightgrey;
+        }
+    }
+}
 
 </style>

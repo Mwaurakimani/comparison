@@ -204,13 +204,6 @@ class Scraper
             return $product[0];
         } catch (\Exception $e) {
             $string = $e->getMessage();
-
-            dd($string);
-
-            if (strpos($string, 'Failed to open stream')) {
-                $watch = watch::where('product_link', $url)->first();
-                $watch->delete();
-            }
         }
     }
 }

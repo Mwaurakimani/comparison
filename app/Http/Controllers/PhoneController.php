@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Lib\Scraper;
 use App\Models\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,8 @@ class PhoneController extends Controller
         $phone->storage = $request['storage'];
         $phone->front = $request['front'];
         $phone->back = $request['back'];
+        $phone->ecom1 = $request['ecom1'];
+        $phone->ecom2 = $request['ecom2'];
 
         if($request['avatar']){
             $file = $request->file('avatar');
@@ -56,6 +59,8 @@ class PhoneController extends Controller
         $phone->storage = $request['storage'];
         $phone->front = $request['front'];
         $phone->back = $request['back'];
+        $phone->ecom1 = $request['ecom1'];
+        $phone->ecom2 = $request['ecom2'];
 
         if($request['avatar']){
             $file = $request->file('avatar');
@@ -90,6 +95,29 @@ class PhoneController extends Controller
     public function phone_selected(Request $request)
     {
         $phone = Phone::find($request['id']);
+
+        $ecom1_link = $phone->ecom1;
+
+        if($ecom1_link != null){
+            $scrapper = new Scraper();
+
+            $item = $scrapper->scrap_product($ecom1_link);
+
+            $phone->price1 = $item['price'];
+        }
+
+
+        $ecom2_link = $phone->ecom2;
+
+        if($ecom2_link != null){
+            $scrapper = new Scraper();
+
+            $item = $scrapper->scrap_product($ecom2_link);
+
+            $phone->price2 = $item['price'];
+        }
+
+
 
         return $phone;
     }
